@@ -87,14 +87,14 @@
          print(Helpers.addGrade)
          let inputGrade = readLine()!.split(separator: " ").map{ String($0) }
          
-         if inputGrade.count != 3{
+         if (inputGrade.count != 3) || Helpers.scoreData[inputGrade[2].uppercased()] == nil{
              print(Helpers.wrongAnswer)
              return
          }
          
          for (_, student) in students.enumerated(){
              if inputGrade[0] == student.key{
-                 students[inputGrade[0]]?.updateValue(Helpers.scoreData[inputGrade[2].uppercased()] ?? 0.0, forKey: inputGrade[1])
+                 students[inputGrade[0]]?.updateValue(Helpers.scoreData[inputGrade[2].uppercased()]!, forKey: inputGrade[1])
                  print("\(inputGrade[0]) 학생의 \(inputGrade[1]) 과목이 \(inputGrade[2])로 추가(변경)되었습니다.")
                  return
 
