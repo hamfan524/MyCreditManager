@@ -114,14 +114,18 @@
          }
          
          for (_, student) in students.enumerated(){
-             if (removeGrade[0] == student.key) && student.value.contains(where: { subject in
-                 subject.key == removeGrade[1]
-             }){
-                 students[removeGrade[0]]?.removeValue(forKey: removeGrade[1])
-                 print("\(removeGrade[0]) 학생의 \(removeGrade[1]) 과목의 성적이 삭제되었습니다.")
-                 return
+             if (removeGrade[0] == student.key){
+                 if student.value.contains(where: { subject in
+                     subject.key == removeGrade[1]
+                 }){
+                     students[removeGrade[0]]?.removeValue(forKey: removeGrade[1])
+                     print("\(removeGrade[0]) 학생의 \(removeGrade[1]) 과목의 성적이 삭제되었습니다.")
+                     return
+                 }else{
+                     print("\(removeGrade[0]) 학생은 \(removeGrade[1]) 과목의 성적이 없습니다.")
+                     return
+                 }
              }
-             
          }
          
          print("\(removeGrade[0])", Helpers.notFindStudent)
