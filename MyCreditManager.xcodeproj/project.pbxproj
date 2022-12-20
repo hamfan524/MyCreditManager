@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		416E04DD295195860064CAC5 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416E04DC295195860064CAC5 /* Student.swift */; };
 		41B46F9829271ECB001FDD8B /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B46F9729271ECB001FDD8B /* main.swift */; };
 		41B46FA129275044001FDD8B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B46FA029275044001FDD8B /* Helpers.swift */; };
 		41B46FA329275653001FDD8B /* ManagerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B46FA229275653001FDD8B /* ManagerSystem.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		416E04DC295195860064CAC5 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		41B46F9429271ECB001FDD8B /* MyCreditManager */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MyCreditManager; sourceTree = BUILT_PRODUCTS_DIR; };
 		41B46F9729271ECB001FDD8B /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		41B46FA029275044001FDD8B /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				41B46F9729271ECB001FDD8B /* main.swift */,
+				416E04DC295195860064CAC5 /* Student.swift */,
 				41B46FA029275044001FDD8B /* Helpers.swift */,
 				41B46FA229275653001FDD8B /* ManagerSystem.swift */,
 			);
@@ -96,7 +99,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					41B46F9329271ECB001FDD8B = {
 						CreatedOnToolsVersion = 14.1;
@@ -129,6 +132,7 @@
 				41B46F9829271ECB001FDD8B /* main.swift in Sources */,
 				41B46FA129275044001FDD8B /* Helpers.swift in Sources */,
 				41B46FA329275653001FDD8B /* ManagerSystem.swift in Sources */,
+				416E04DD295195860064CAC5 /* Student.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +172,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -228,6 +233,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -251,7 +257,9 @@
 		41B46F9C29271ECB001FDD8B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = UAG934M4Q7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -262,7 +270,9 @@
 		41B46F9D29271ECB001FDD8B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = UAG934M4Q7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";

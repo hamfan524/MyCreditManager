@@ -6,4 +6,4 @@
 //
 
 let managerSystem = ManagerSystem()
-managerSystem.inputValue()
+managerSystem.run()

@@ -7,16 +7,14 @@
 
  final class ManagerSystem {
 
-     var students = [String: [String: Double]]()
+     var students = [Student]()
      
-     func inputValue(){
-         
+     func run(){
          var loop = true
-         
+
          while loop{
              print(Helpers.inputValue)
-             
-             let command = readLine()!
+             guard let command = readLine() else{ return }
              
              switch command{
              case "1":
@@ -47,119 +45,130 @@
      //학생 추가
      func addStudent(){
          print(Helpers.addStudent)
-         let inputStudent = readLine()!
+         guard let inputStudent = readLine() else{ return }
+         
          if inputStudent.isEmpty {
              print(Helpers.wrongAnswer)
+             return
          }
          
-         for name in students.keys{
-             if name == inputStudent{
-                 print("\(inputStudent)", Helpers.existedStudent)
-                 return
-             }
+         guard students.filter({$0.name == inputStudent}).count > 0 else {
+             students.append(Student(name: inputStudent, score: [:]))
+             print("\(inputStudent)", Helpers.inputStudent)
+             return
          }
-         
-         students[inputStudent] = [:]
-         print("\(inputStudent) ", Helpers.inputStudent)
-     
+         print("\(inputStudent)", Helpers.existedStudent)
+    
      }
      
      //학생 삭제
      func removeStudent(){
          print(Helpers.selectStudent)
-         let removeStudent = readLine()!
+         guard let removeStudent = readLine() else{ return }
+         
          if removeStudent.isEmpty {
              print(Helpers.wrongAnswer)
+             return
          }
-         for (_, student) in students.enumerated() {
-             if removeStudent == student.key {
-                 students.removeValue(forKey: removeStudent)
-                 print("\(removeStudent)", Helpers.removeStudent)
-                 return
-             }
+         
+         guard students.filter({$0.name == removeStudent}).count == 0 else {
+             students.remove(at: students.firstIndex(where: {$0.name == removeStudent}) ?? 0)
+             print("\(removeStudent)", Helpers.removeStudent)
+             return
          }
          print("\(removeStudent)", Helpers.notFindStudent)
          
      }
 
-     //성적 추가
+     //성적 추가(변경)
      func addGrade(){
          print(Helpers.addGrade)
-         let inputGrade = readLine()!.split(separator: " ").map{ String($0) }
          
-         if (inputGrade.count != 3) || Helpers.scoreData[inputGrade[2].uppercased()] == nil{
+         guard let inputGrade = readLine() else{ return }
+         let splitGrade = inputGrade.split(separator: " ")
+         
+         if (splitGrade.count != 3) || Helpers.scoreData[splitGrade[2].uppercased()] == nil{
              print(Helpers.wrongAnswer)
              return
          }
+         let name = splitGrade[0]
+         let subject = String(splitGrade[1])
+         let score = splitGrade[2]
          
-         for (_, student) in students.enumerated(){
-             if inputGrade[0] == student.key{
-                 students[inputGrade[0]]?.updateValue(Helpers.scoreData[inputGrade[2].uppercased()]!, forKey: inputGrade[1])
-                 print("\(inputGrade[0]) 학생의 \(inputGrade[1]) 과목이 \(inputGrade[2])로 추가(변경)되었습니다.")
-                 return
-
+         guard students.filter({$0.name == name}).count == 0 else{
+             for (index, student) in students.enumerated(){
+                 if student.name == name{
+                     students[index].score.updateValue(Helpers.scoreData[score.uppercased()]!, forKey: subject)
+                 }
              }
+             print("\(name) 학생의 \(subject) 과목이 \(score)로 추가(변경)되었습니다.")
+             return
          }
-         print("\(inputGrade[0])", Helpers.notFindStudent)
-
+         print("\(name)", Helpers.notFindStudent)
+    
      }
      
      //성적 삭제
      func removeGrade(){
          print(Helpers.removeGrade)
-         let removeGrade = readLine()!.split(separator: " ").map{ String($0) }
-         if removeGrade.count != 2{
+         
+         guard let removeGrade = readLine() else{ return }
+         let splitGrade = removeGrade.split(separator: " ")
+         
+         if splitGrade.count != 2{
              print(Helpers.wrongAnswer)
              return
          }
+         let name = splitGrade[0]
+         let subject = String(splitGrade[1])
          
-         for (_, student) in students.enumerated(){
-             if (removeGrade[0] == student.key){
-                 if student.value.contains(where: { subject in
-                     subject.key == removeGrade[1]
-                 }){
-                     students[removeGrade[0]]?.removeValue(forKey: removeGrade[1])
-                     print("\(removeGrade[0]) 학생의 \(removeGrade[1]) 과목의 성적이 삭제되었습니다.")
-                     return
-                 }else{
-                     print("\(removeGrade[0]) 학생은 \(removeGrade[1]) 과목의 성적이 없습니다.")
-                     return
+         guard students.filter({$0.name == name}).count == 0 else{
+             for (index, student) in students.enumerated(){
+                 if student.name == name{
+                     if student.score.contains(where: { studentSubject in
+                         studentSubject.key == subject
+                     }){
+                         students[index].score.removeValue(forKey: subject)
+                         print("\(name) 학생의 \(subject) 과목의 성적이 삭제되었습니다.")
+                     }else{
+                         print("\(name) 학생은 \(subject) 과목의 성적이 없습니다.")
+                     }
                  }
              }
+             return
          }
-         
-         print("\(removeGrade[0])", Helpers.notFindStudent)
+         print("\(name)", Helpers.notFindStudent)
+    
      }
 
      //평점보기
      func showAverage(){
          print(Helpers.showAverage)
-         let name = readLine()!
+         guard let name = readLine() else{ return }
+         
          if name.isEmpty{
              print(Helpers.wrongAnswer)
-         }
-         if students.contains(where: { student in
-             student.key != name
-         }) || students.isEmpty{
-             print("\(name)", Helpers.notFindStudent)
+             return
          }
          
-         var sum: Double = 0
-             
-         for student in students{
-             if name == student.key{
-                 if student.value.isEmpty{
-                     print(Helpers.notFindGrade)
-                 }else{
-                     for subject in student.value{
-                         print("\(subject.key) : \(subject.value)")
-                         sum += subject.value
+         guard students.filter({$0.name == name}).count == 0 else{
+             for student in students {
+                 if name == student.name{
+                     if student.score.isEmpty{
+                         print(Helpers.notFindGrade)
                      }
-                     print("평점 : ", (sum / Double((student.value.count))))
-                     
+                     else{
+                         for subjects in student.score{
+                             print("\(subjects.key) : \(subjects.value)")
+                         }
+                         let sum = student.score.values.reduce(0, +)
+                         print("평점 : ", (sum / Double((student.score.count))))
+                     }
                  }
              }
+             
+             return
          }
-        
+         print("\(name)", Helpers.notFindStudent)
      }
  }
